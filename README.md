@@ -165,36 +165,19 @@ CTRL+A一起按，然后再按d键  //退出当前screen窗口，再次进入此
   
 
 
-## 项目截图
-
-* 前台    
-
-![](/public/static/images/index.gif)   
 
 
-* 后台  
+* CPU占用率
 
-![](/public/static/images/4.png)  
-
-![](/public/static/images/8.png)  
-
-![](/public/static/images/9.png)  
-
-![](/public/static/images/5.png)  
-
-![](/public/static/images/6.png)  
-
-![](/public/static/images/7.png)  
+![](/public/image/cpu.png)  
 
   
 
 
-## CDN SERVER端
-[FILE_GD_CDN](https://github.com/PHPCODE123/file_gd_cdn "FILE_GD_CDN")  
 
 
-  
+## 官方文档
 
-## 版本更新说明
+* HyPerf: [https://hyperf.wiki/3.0/#/README](https://hyperf.wiki/3.0/#/README "Document")
 
-[请查看UPDATE.md](https://github.com/PHPCODE123/file_gd/blob/master/UPDATE.md "UPDATE")
+* Swoole: [https://wiki.swoole.com/#/](https://wiki.swoole.com/#/ "Document")
