@@ -5,20 +5,20 @@
 
 2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
-3、项目主要用于学习Swoole+HyPerf框架，以及测试Swoole+HyPerf与ThinkPHP之间的性能差距。  
+3、项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP之间的性能差距。  
   
 
 ## 环境相关
 
 * 配置：I5-10500(6核12线程 3.1GHz) + 16G DDR4(2666 MT/S)
 * 环境：Ubuntu22.04 + Nginx1.22 + MySQL8.1 + PHP8.1 + Redis7.0
-* 框架：Swoole+HyPerf、ThinkPHP6.1 （两套程序控制器逻辑流程基本一致）
+* 框架：Swoole+Hyperf、ThinkPHP6.1 （两套程序控制器逻辑流程基本一致）
 
 ## 结论
 
-* View视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
-* API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+HyPerf做API接口，按3500QPS算，24小时就是3亿，性能可谓强悍。
+* View视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
+* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
 
 
 ## 视图性能测试
@@ -30,7 +30,7 @@
 
 1、VIEW视图性能对比（只是简单的展示视图，以及简单的请求数据库）
 ~~~
-## Swoole+HyPerf
+## Swoole+Hyperf
 
 >> ab -n 20000 -c 1000 http://192.168.0.5:82/
 
@@ -116,11 +116,11 @@ Percentage of the requests served within a certain time (ms)
 ~~~
 
 ## API接口性能测试
-1、数据库表样式  
+1、数库表结构
 2、API部分代码  
 3、性能测试结果  
 
-#### 数据库表样式
+#### 数据表结构
 ~~~
 
 mysql> desc tp_shortener;
@@ -158,7 +158,7 @@ mysql> desc tp_shortener;
 
 #### API部分代码
 ~~~
-## HyPerf API \App\Controller\Index\IndexController\api
+## Hyperf API \App\Controller\Index\IndexController\api
 
 public function api(){
     $itemid_ = [];
@@ -193,7 +193,7 @@ public function api(){
 
 #### API性能测试结果
 ~~~
-## HyPerf 
+## Hyperf 
 >>  ab -n 20000 -c 1000 http://192.168.0.5:82/api
 
 Server Software:        nginx
@@ -280,18 +280,20 @@ Percentage of the requests served within a certain time (ms)
 
 ## 结论
 
-* VIEW视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
-* API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+HyPerf做API接口，按3500QPS算，24小时就是3亿，性能可谓强悍。
+* VIEW视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
+* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
 
 
   
-  
+## 拓展测试
+
+* [/TEST.md](API接口独立数据库性能测试 "")
   
   
 
 ## 官方文档
 
-* HyPerf: [https://hyperf.wiki/3.0/#/README](https://hyperf.wiki/3.0/#/README "Document")
+* Hyperf: [https://hyperf.wiki/3.0/#/README](https://hyperf.wiki/3.0/#/README "Document")
 
 * Swoole: [https://wiki.swoole.com/#/](https://wiki.swoole.com/#/ "Document")
