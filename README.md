@@ -3,7 +3,7 @@
 
 1、此项目为Swoole+Hyperf框架重写Shortener，控制器部分逻辑基本与TP版本的Shortener一致。
 
-2、前台所有控制器全部重写，后台部分只是测试通了Hyperf的中间件、权限控制、分页器原理，并未全部重写控制器。
+2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
 3、此项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP之间的性能差距。  
   
