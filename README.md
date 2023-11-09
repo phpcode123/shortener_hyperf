@@ -5,7 +5,7 @@
 
 2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
-3、此项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP之间的性能差距。  
+3、项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP之间的性能差距。  
   
 
 ## 环境相关
@@ -23,7 +23,7 @@
 
 ## 视图性能测试
 
-* 程序VIEW视图性能测试对比 (模板引擎均为ThinkTemplate)
+* 程序VIEW视图性能测试对比  (模板引擎均为ThinkTemplate)
 * 程序API接口性能测试对比（随机从数据库读取20条数据，数据样本20W）
 
 
