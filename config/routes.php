@@ -14,6 +14,7 @@ use Hyperf\HttpServer\Router\Router;
 
 #Index Controller 注意有顺序
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\Index\IndexController@index');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/api', 'App\Controller\Index\IndexController@api');
 Router::addRoute(['GET', 'POST', 'HEAD'], '/shortener', 'App\Controller\Index\ShortenerController@index');
 Router::addRoute(['GET', 'POST', 'HEAD'], '/shortener-api', 'App\Controller\Index\ShortenerApiController@index');
 Router::addRoute(['GET', 'POST', 'HEAD'], '/shortener-batch', 'App\Controller\Index\ShortenerBatchController@index');

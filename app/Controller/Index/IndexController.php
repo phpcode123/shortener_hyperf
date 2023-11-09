@@ -258,4 +258,20 @@ class IndexController  extends AbstractController
     }
 
 
+    public function api(){
+        $itemid_ = [];
+        while(count($itemid_)<20){
+            $rand_num = mt_rand(1,200000);
+            if(!in_array($rand_num, $itemid_)){
+                array_push($itemid_, $rand_num);
+            }
+        }
+
+        $data = Db::table("tp_shortener")->whereIn("itemid",$itemid_)->get();
+
+        return $data;
+
+    }
+
+
 }

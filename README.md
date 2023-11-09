@@ -17,12 +17,17 @@
 * 环境：Ubuntu22.04 + Nginx1.22 + MySql8.1 + PHP8.1 + Redis7.0
 * 框架：Swoole+Hyperf、Thinkphp6.1 （两套程序控制器逻辑流程基本一致）
 
+## 先说测试结论
+* VIEW视图性能:HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
+* 结论：使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能完全够用。
 
-## 性能测试
+
+## 性能测试数据
 
 * 程序VIEW视图性能测试对比
-* 程序API接口性能测试对比（随机从数据库读取10条数据，测试数据样本20W条）
-* 程序API接口性能测试对比，增加Redis缓存中间件（以HASH(SQL)为Key储存数据库值，测试数据样本20W条）
+* 程序API接口性能测试对比（随机从数据库读取20条数据，数据库样本20W条）
+
 
 
 1、VIEW视图性能对比（只是简单的展示视图，以及简单的请求数据库）
@@ -67,6 +72,7 @@ Percentage of the requests served within a certain time (ms)
   99%   2252
  100%   2365 (longest request)
 
+## CPU占用在70%左右浮动
 ------------------------------------------------------------
 ## ThinkPHP
 
@@ -108,70 +114,176 @@ Percentage of the requests served within a certain time (ms)
   99%   7644
  100%   7993 (longest request)
 
+## CPU占用几乎100%
 ~~~
 
-* 且换到网站根目录，执行命令：composer upgrade && composer update
+## API接口性能测试
+1、数据库表样式
+2、API部分代码
+3、性能测试结果
 
-
-
-
-
-
-* MYSQL:建立空数据库，恢复/file_gd/file_gd_20230924.sql文件，然后配置数据库文件
+* 数据库表样式
 ~~~
 
-/file_gd/config/database.php, 并修改下列行(字母大写部分)
-...
-'database'        => env('database.database', 'YOUR_DATABASE'),
-'username'        => env('database.username', 'YOUR_MYSQL_USERNAME'),
-'password'        => env('database.password', 'YOUR_MYSQL_PASSWORD'),
-...
+mysql> desc tp_shortener;
++------------------------+------------------+------+-----+---------+----------------+
+| Field                  | Type             | Null | Key | Default | Extra          |
++------------------------+------------------+------+-----+---------+----------------+
+| itemid                 | bigint unsigned  | NO   | PRI | NULL    | auto_increment |
+| user_name              | varchar(255)     | NO   |     |         |                |
+| site_id                | int unsigned     | NO   |     | 0       |                |
+| access_url             | varchar(255)     | NO   |     |         |                |
+| short_url              | varchar(100)     | NO   | MUL |         |                |
+| short_url_7            | varchar(100)     | NO   |     |         |                |
+| short_url_8            | varchar(100)     | NO   |     |         |                |
+| url                    | varchar(10000)   | NO   |     |         |                |
+| short_from             | tinyint unsigned | NO   |     | 0       |                |
+| hits                   | bigint unsigned  | NO   | MUL | 0       |                |
+| remote_ip              | varchar(100)     | NO   |     |         |                |
+| country                | varchar(255)     | NO   |     |         |                |
+| timestamp              | int unsigned     | NO   |     | 0       |                |
+| last_access_timestamp  | int unsigned     | NO   |     | 0       |                |
+| middle_page            | tinyint unsigned | NO   |     | 1       |                |
+| is_pc                  | tinyint unsigned | NO   |     | 0       |                |
+| user_agent             | varchar(255)     | NO   |     |         |                |
+| accept_language        | varchar(255)     | NO   |     |         |                |
+| allow_spider_jump      | tinyint unsigned | NO   |     | 1       |                |
+| is_404                 | tinyint unsigned | NO   |     | 0       |                |
+| display_ad             | tinyint unsigned | NO   |     | 1       |                |
+| status                 | tinyint unsigned | NO   |     | 1       |                |
+| redis_index            | tinyint unsigned | NO   | MUL | 0       |                |
+| check_malicious_status | tinyint unsigned | NO   | MUL | 0       |                |
+| youtube_url_itemid     | int unsigned     | NO   |     | 0       |                |
++------------------------+------------------+------+-----+---------+----------------+
+25 rows in set (0.00 sec)
 ~~~
 
-* 伪静态文件目录(只做了Nginx适配)：/file_gd/public/.htaccess  内容复制宝塔配置里即可
-* 后台地址：https://yoursite.com/admin.php/login/login  用户名：admin  密码：admin888 (默认用户名和密码)
-
-## 定时清理
-
-* 此命令程序会定时清理超过15天无人访问的文件，节约服务器磁盘，天数可自定义，详情请阅读command控制器逻辑部分：/file_gd/app/command/CleanExpiredFile.php
-
+* API部分代码
 ~~~
-cd FILE_GD_PATH    //在linux终端切换到FILE_GD目录
-screen -S clean_file   //screen 新建命令行窗口挂载
-php think clean_file   // 执行监控程序
-CTRL+A一起按，然后再按d键  //退出当前screen窗口，再次进入此窗口查看：screen -r clean_file
+## HyPerf API \App\Controller\Index\IndexController\api
+
+public function api(){
+    $itemid_ = [];
+    while(count($itemid_)<20){
+        $rand_num = mt_rand(1,200000);
+        if(!in_array($rand_num, $itemid_)){
+            array_push($itemid_, $rand_num);
+        }
+    }
+
+    $data = Db::table("tp_shortener")->whereIn("itemid",$itemid_)->get();
+    return $data;
+}
+-----------------------------------
+## ThinkPHP API \app\index\controller\index\api
+
+
+public function api(){
+  $itemid_ = [];
+  while(count($itemid_)<20){
+      $rand_num = mt_rand(1,200000);
+      if(!in_array($rand_num, $itemid_)){
+          array_push($itemid_, $rand_num);
+      }
+  }
+  $itemid_str = join(",",$itemid_);
+
+  $data = Db::table("tp_shortener")->where("itemid","in",$itemid_str)->select();
+  return $data;
+}
 ~~~
 
-
-## 其它问题
-
-* 如何更改后台登录账号密码？
+* 性能测试结果
 ~~~
-修改网站配置文件：/file_gd/config/app.php    （修改大写字母部分即可）
-    'admin_username'         => 'YOUR_ADMIN_USERNAME', //后台用户名
-    'admin_password'         => 'YOUR_ADMIN_PASSWORD', //后台密码
+## HyPerf 
+>>  ab -n 20000 -c 1000 http://192.168.0.5:82/api
+
+Server Software:        nginx
+Server Hostname:        192.168.0.5
+Server Port:            82
+
+Document Path:          /api
+Document Length:        15182 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   5.654 seconds
+Complete requests:      20000
+Failed requests:        19988
+   (Connect: 0, Receive: 0, Length: 19988, Exceptions: 0)
+Total transferred:      299939961 bytes
+HTML transferred:       293479961 bytes
+Requests per second:    3537.38 [#/sec] (mean)
+Time per request:       282.695 [ms] (mean)
+Time per request:       0.283 [ms] (mean, across all concurrent requests)
+Transfer rate:          51806.74 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.4      0       3
+Processing:    28  275  37.7    275     487
+Waiting:       19  141  45.4    140     320
+Total:         28  275  37.7    276     487
+
+Percentage of the requests served within a certain time (ms)
+  50%    276
+  66%    280
+  75%    284
+  80%    286
+  90%    295
+  95%    318
+  98%    351
+  99%    370
+ 100%    487 (longest request)
+
+## CPU占用70%左右
+---------------------------------------
+## ThinkPHP 
+>>  ab -n 20000 -c 1000 http://192.168.0.5:83/api
+
+Server Software:        nginx
+Server Hostname:        192.168.0.5
+Server Port:            83
+
+Document Path:          /api
+Document Length:        15110 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   115.241 seconds
+Complete requests:      20000
+Failed requests:        19991
+   (Connect: 0, Receive: 0, Length: 19991, Exceptions: 0)
+Total transferred:      299282079 bytes
+HTML transferred:       293102079 bytes
+Requests per second:    173.55 [#/sec] (mean)
+Time per request:       5762.045 [ms] (mean)
+Time per request:       5.762 [ms] (mean, across all concurrent requests)
+Transfer rate:          2536.15 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0       4
+Processing:   178 5632 803.8   5817    6688
+Waiting:       45 5631 803.9   5815    6688
+Total:        178 5632 803.8   5817    6688
+
+Percentage of the requests served within a certain time (ms)
+  50%   5817
+  66%   5920
+  75%   5978
+  80%   6015
+  90%   6108
+  95%   6184
+  98%   6266
+  99%   6332
+ 100%   6688 (longest request)
+
+## CPU占用几乎100%
 ~~~
 
+## 结论
 
-* 如何更改后台登录地址？
-~~~
-1、先将/file_gd/public/admin.php admin.php文件命名为自己想要的 如：loginasadad.php
-2、修改网站配置文件：/file_gd/config/app.php    （admin_path地址必须与步骤1修改的一致）如:
+* 视图下 HyPerf每秒并发是
 
-'admin_path'             => 'loginasadad.php',//后台入口文件，防止后台被爆破
-
-后台地址：https://yoursite.com/loginasadad.php/login/login
-~~~
-  
-
-
-
-
-* CPU占用率
-
-![](/public/image/cpu.png)  
-
-  
 
 
 
