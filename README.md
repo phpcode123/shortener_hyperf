@@ -1,6 +1,3 @@
-## 避免程序滥用，此项目仅为展示，部分核心代码删除。
-
-
 
 ## 简介
 
@@ -17,7 +14,8 @@
 * 环境：Ubuntu22.04 + Nginx1.22 + MySql8.1 + PHP8.1 + Redis7.0
 * 框架：Swoole+Hyperf、Thinkphp6.1 （两套程序控制器逻辑流程基本一致）
 
-## 先说测试结论
+## 测试结论
+
 * VIEW视图性能:HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
 * 结论：使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能完全够用。
@@ -282,7 +280,7 @@ Percentage of the requests served within a certain time (ms)
 
 ## 结论
 
-* 视图下 HyPerf每秒并发是
+* 引用大佬的一句话："HyPerf用做接口 贼快"
 
 
 
