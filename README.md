@@ -191,7 +191,7 @@ public function api(){
 }
 ~~~
 
-#### 性能测试结果
+#### API性能测试结果
 ~~~
 ## HyPerf 
 >>  ab -n 20000 -c 1000 http://192.168.0.5:82/api
