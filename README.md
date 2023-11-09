@@ -16,9 +16,9 @@
 
 ## 结论
 
-* VIEW视图性能:HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* VIEW视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能完全够用。
+* 使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
 
 
 ## 视图性能测试
@@ -280,9 +280,9 @@ Percentage of the requests served within a certain time (ms)
 
 ## 结论
 
-* VIEW视图性能:HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* VIEW视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能完全够用。
+* 使用HyPerf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
 
 
   
