@@ -1,0 +1,49 @@
+{include file="/Index/header_1" /}
+<main>
+<section id="urlbox">
+<h2>This tool can help you shorten 10 URLs at once.</h2>
+<br/>
+<form action="/shortener-batch" method="post">
+
+    <input type="text" name="hash_str" value="" id="hash_str" style="display: none;">
+    <div class="check_site_id">
+        <ul>
+            <li>
+                <span class="check_site_id_span_one">Customize your link</span>
+                <span class="check_site_id_span_two">Customize</span>
+            </li>
+            {volist name="customize_data" id="vo"}
+            <li>
+                <input type="radio" name="check_site_id" value="{$vo->itemid}"  {if $vo->is_checked eq 1}checked{/if}>
+                <span>{$vo->domain_url}</span>
+            </li>
+            {/volist}
+            <div class="clear"></div>
+        </ul>
+    </div>
+    <textarea name="batch_url"  id="formurl_textarea" value="" onfocus="if(this.value=='Paste up to 10 long urls. One URL per line.') {this.value='';}this.style.color='#999';" 
+
+    onblur="if(this.value=='') {this.value='Paste up to 10 long urls. One URL per line.';this.style.color='#999';}">Paste up to 10 long urls. One URL per line.</textarea>
+
+        <div id="formurl_formbutton">
+        <input type="submit" value="Shorten URL">
+        </div>
+
+</form>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<p class="boxtextcenter">{$Think.lang.shortener_batch_footer_description|raw}</p>
+</section>
+
+
+</main>
+
+<script type="text/javascript" src="/static/js/5e20e1e5ddc34269647ce58a762859e5.js"></script>
+<script language="javascript">
+    timestamp("{$index_timestamp}");
+</script>
+{include file="/Index/footer_1" /}

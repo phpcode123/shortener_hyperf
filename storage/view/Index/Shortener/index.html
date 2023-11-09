@@ -1,0 +1,63 @@
+{include file="/Index/header_1" /}
+<main>
+<section id="content">
+<h1>Your shortened URL</h1>
+<p>Copy the shortened link and share it in messages, texts, posts, websites and other locations.</p>
+</section>
+<script src="/static/js/clipboard.min.js" type="text/javascript"></script>
+<script src="/static/js/qrcode.js" type="text/javascript"></script>
+<script type="text/javascript" src="/static/layer/layer.js"></script>
+
+<section id="urlbox">
+<br><br>
+<div id="formurl" style="max-width: 400px;">
+<input id="shortenurl" type="text" value="{$short_url}" >
+<div id="formbutton">
+<input type="button" data-clipboard-target="#shortenurl" class="copy"  value="Copy URL" data-clipboard-text="{$short_url}" data-clipboard-action="copy">
+</div>
+</div>
+</div>
+<div id="show_qrcode"  width="120" height="120" style="display: block;text-align: center;margin:20px auto 20px;"></div>
+
+<p class="boxtextleft">Long URL: <a href="{$long_url}" target="_blank">{$long_url}</a><br><br>
+
+  Track the total of clicks in real-time from your shortened URL.<a href="{$domain_url}url-total-clicks?url={$short_url}"> CLICK HERE</a></a><br>
+
+</p>
+
+
+</section>
+<section id="content">
+<h2><a href="/" class="gohome_text"><< Back Home</a></h2>
+<div class="socialnetworkbox">
+<p>
+
+</p>
+</div>
+</section>
+</main>
+<script type="text/javascript">
+  var clipboard = new ClipboardJS('.copy');
+
+  clipboard.on('success', function(e) {
+      layer.msg("Copied!",{
+        time: 1000, 
+      }
+      );
+  });
+  clipboard.on('error', function(e) {
+
+      layer.open({
+          title: 'Tips',
+          content: 'Your browser may not support it. Please copy it manually.'
+      });
+  });
+
+  var typeNumber = 7;
+  var errorCorrectionLevel = 'L';
+  var qr = qrcode(typeNumber, errorCorrectionLevel);
+  qr.addData('{$short_url}');
+  qr.make();
+  document.getElementById('show_qrcode').innerHTML = qr.createImgTag();
+</script>
+{include file="/Index/footer_1" /}

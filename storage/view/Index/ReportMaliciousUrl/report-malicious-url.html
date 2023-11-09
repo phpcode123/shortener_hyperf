@@ -1,0 +1,25 @@
+{include file="/Index/header_1" /}
+<main>
+<section id="content">
+<h1>Report Malicious Short Link</h1>
+<p>Use the form below to report URLs that are distributing spam and malware. Help us by sending links that are against our terms of use, we will delete and block these shortened links. If spammers are sending you e-mails containing our shortened URLs, tell us and we can take quick action to avoid the distribution of inappropriate links.</p>
+<div id="formbox">
+<form name="formContact" method="post" action="/report-malicious-url">
+<p class="formtext">Invalid or malicious URL<br><input name="url" type="text" style="width: 100%; max-width: 100%;" placeholder="https://m5.gs/WktJWm" required=""></p>
+<p class="formtext">Comment<br><textarea name="comment" style="width: 100%; max-width: 100%; height: 80px;" required=""></textarea></p>
+<p class="formtext">E-mail<br><input name="email" type="email" style="width: 100%; max-width: 100%;" required=""></p>
+<p class="formtext">{$cptc_number_1} + {$cptc_number_2} = <input name="cptc" type="text" style="width: 100%; max-width: 80px;" required=""></p>
+<input name="cptc_number_1" type="hidden" value="{$cptc_number_1}">
+<input name="cptc_number_2" type="hidden" value="{$cptc_number_2}">
+<input type="text" name="hash_str" value="" id="hash_str" style="display: none;">
+<p id="button"><input name="submit" value="Submit" type="submit"> <input name="submit" value="Clean" type="reset"></p>
+</form>
+</div>
+</section>
+</main>
+<script type="text/javascript" src="/static/js/5e20e1e5ddc34269647ce58a762859e5.js"></script>
+<script language="javascript">
+    timestamp("{$index_timestamp}");
+</script>
+
+{include file="/Index/footer_1" /}
