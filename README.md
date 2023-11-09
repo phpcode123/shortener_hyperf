@@ -16,14 +16,14 @@
 
 ## 结论
 
-* VIEW视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
+* View视图性能：HyPerf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：HyPerf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
 * 使用Swoole+HyPerf做API接口，按3500QPS算，24小时就是3亿，性能可谓强悍。
 
 
 ## 视图性能测试
 
-* 程序VIEW视图性能测试对比(模板引擎均为ThinkTemplate)
+* 程序VIEW视图性能测试对比 (模板引擎均为ThinkTemplate)
 * 程序API接口性能测试对比（随机从数据库读取20条数据，数据样本20W）
 
 
