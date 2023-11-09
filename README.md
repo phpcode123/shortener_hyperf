@@ -10,7 +10,7 @@
 
 ## 环境相关
 
-* 配置：I5-10500(6核12线程 3.1GHz) + 16G DDR4-2666 MT/S
+* 配置：I5-10500(6核12线程 3.1GHz) + 16G DDR4(2666 MT/S)
 * 环境：Ubuntu22.04 + Nginx1.22 + MySql8.1 + PHP8.1 + Redis7.0
 * 框架：Swoole+Hyperf、Thinkphp6.1 （两套程序控制器逻辑流程基本一致）
 
