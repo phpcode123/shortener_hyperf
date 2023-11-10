@@ -18,7 +18,7 @@
 
 * View视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
+* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍(其实1亿就够用了)
 
 
 ## 性能测试
@@ -282,11 +282,11 @@ Percentage of the requests served within a certain time (ms)
 
 * VIEW视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
 * API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍。
+* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍(其实1亿就够用了)
 
 
   
-  
+
   
   
 
