@@ -5,7 +5,7 @@
 
 2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
-3、项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP\ThinkPHP+Swoole之间的性能差距。  
+3、测试Swoole+Hyperf、ThinkPHP与ThinkPHP+Swoole之间的性能差距。  
   
 
 ## 环境相关
@@ -17,7 +17,7 @@
 ## 结论
 
 * View视图性能：Hyperf(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
-* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
+* API接口性能：Hyperf(3537.38RPS)\ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
 
 
 
@@ -370,9 +370,9 @@ Total:         24  276  38.5    277     525
 ## 结论
 
 * View视图性能：Hyperf(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
-* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
+* API接口性能：Hyperf(3537.38RPS)\ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
 
-
+在基于Swoole拓展下，框架的性能差距不大。专注业务逻辑，勿要总是关注框架或技术。
 
   
   
