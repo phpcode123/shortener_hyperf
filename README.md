@@ -372,7 +372,7 @@ Total:         24  276  38.5    277     525
 * View视图性能：Hyperf+Swoole(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
 * API接口性能：Hyperf+Swoole(3537.38RPS)\ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
 
-在基于Swoole下，框架的性能差距不大。专注业务逻辑，勿要总是关注框架或技术，用ThinkPHP即可。
+在基于Swoole扩展，框架的性能差距不大。专注业务逻辑，勿要总是关注框架或技术，用ThinkPHP即可。
 
   
   
