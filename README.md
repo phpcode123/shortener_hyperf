@@ -5,20 +5,20 @@
 
 2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
-3、项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP之间的性能差距。  
+3、项目主要用于学习Swoole+Hyperf框架，以及测试Swoole+Hyperf与ThinkPHP\ThinkPHP+Swoole之间的性能差距。  
   
 
 ## 环境相关
 
 * 配置：I5-10500(6核12线程 3.1GHz) + 16G DDR4(2666 MT/S)
 * 环境：Ubuntu22.04 + Nginx1.22 + MySQL8.1 + PHP8.1 + Redis7.0
-* 框架：Swoole+Hyperf、ThinkPHP6.1 （两套程序控制器逻辑流程基本一致）
+* 框架：Swoole+Hyperf、ThinkPHP6.1 、ThinkPHP6.1+Swoole（两套程序控制器逻辑流程基本一致）
 
 ## 结论
 
-* View视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
-* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍(其实1亿就够用了)
+* View视图性能：Hyperf(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
+* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
+
 
 
 ## 性能测试
@@ -113,6 +113,49 @@ Percentage of the requests served within a certain time (ms)
  100%   7993 (longest request)
 
 ## CPU占用几乎100%
+--------------------------------------------------------------
+## Thinkphp+Swoole
+
+> ab -n 20000 -c 1000 http://192.168.0.5:8088/
+
+Server Software:        swoole-http-server
+Server Hostname:        192.168.0.5
+Server Port:            8088
+
+Document Path:          /
+Document Length:        20164 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   10.945 seconds
+Complete requests:      20000
+Failed requests:        0
+Total transferred:      409820000 bytes
+HTML transferred:       403280000 bytes
+Requests per second:    1827.32 [#/sec] (mean)
+Time per request:       547.249 [ms] (mean)
+Time per request:       0.547 [ms] (mean, across all concurrent requests)
+Transfer rate:          36566.04 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.9      0       8
+Processing:    12  522 328.4    468    1568
+Waiting:        8  519 328.9    464    1564
+Total:         12  523 328.4    468    1568
+
+Percentage of the requests served within a certain time (ms)
+  50%    468
+  66%    585
+  75%    672
+  80%    783
+  90%    972
+  95%   1172
+  98%   1445
+  99%   1495
+ 100%   1568 (longest request)
+
+
+## CPU占用在70%-80%左右浮动
 ~~~
 
 ### API接口性能测试
@@ -276,17 +319,62 @@ Percentage of the requests served within a certain time (ms)
  100%   6688 (longest request)
 
 ## CPU占用几乎100%
+
+---------------------------------------
+## ThinkPHP+Swoole
+> ab -n 20000 -c 1000 http://192.168.0.5:8088/index.php/index/api
+
+Benchmarking 192.168.0.5 (be patient)
+Completed 2000 requests
+Completed 6000 requests
+Completed 8000 requests
+Completed 10000 requests
+Completed 12000 requests
+Completed 14000 requests
+Completed 16000 requests
+Completed 18000 requests
+Completed 20000 requests
+Finished 20000 requests
+
+
+Server Software:        swoole-http-server
+Server Hostname:        192.168.0.5
+Server Port:            8088
+
+Document Path:          /index.php/index/api
+Document Length:        14520 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   5.670 seconds
+Complete requests:      20000
+Failed requests:        19989
+   (Connect: 0, Receive: 0, Length: 19989, Exceptions: 0)
+Total transferred:      300129254 bytes
+HTML transferred:       293589254 bytes
+Requests per second:    3527.20 [#/sec] (mean)
+Time per request:       283.511 [ms] (mean)
+Time per request:       0.284 [ms] (mean, across all concurrent requests)
+Transfer rate:          51690.17 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.9      0       4
+Processing:    24  276  38.5    277     525
+Waiting:       12  139  50.5    140     408
+Total:         24  276  38.5    277     525
+
+
+## CPU占用70%-80%左右
 ~~~
 
 ## 结论
 
-* VIEW视图性能：Hyperf(986.31RPS)是ThinkPHP(146.15RPS)的6.74倍
-* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)的20.38倍
-* 使用Swoole+Hyperf做API接口，按3500QPS算，24小时就是3亿，性能强悍(其实1亿就够用了)
+* View视图性能：Hyperf(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
+* API接口性能：Hyperf(3537.38RPS)是ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
+
 
 
   
-
   
   
 
