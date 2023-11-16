@@ -1,18 +1,18 @@
 
 ## 简介
 
-1、此项目为Swoole+Hyperf框架重写Shortener，控制器部分逻辑基本与TP版本的Shortener一致。
+1、此项目为Hyperf+Swoole框架重写Shortener，控制器部分逻辑基本与TP版本的Shortener一致。
 
 2、前台控制器全部重写，后台部分只是测试Hyperf的中间件、权限控制、分页器原理，并未全部重写。
 
-3、测试Swoole+Hyperf、ThinkPHP与ThinkPHP+Swoole之间的性能差距。  
+3、测试Hyperf+Swoole、ThinkPHP与ThinkPHP+Swoole之间的性能差距。  
   
 
 ## 环境相关
 
 * 配置：I5-10500(6核12线程 3.1GHz) + 16G DDR4(2666 MT/S)
 * 环境：Ubuntu22.04 + Nginx1.22 + MySQL8.1 + PHP8.1 + Redis7.0
-* 框架：Swoole+Hyperf、ThinkPHP6.1 、ThinkPHP6.1+Swoole（两套程序控制器逻辑流程基本一致）
+* 框架：Hyperf+Swoole、ThinkPHP6.1 、ThinkPHP6.1+Swoole（两套程序控制器逻辑流程基本一致）
 
 ## 结论
 
@@ -30,7 +30,7 @@
 
 ### VIEW视图性能对比（只是简单的展示视图，以及简单的请求数据库）
 ~~~
-## Swoole+Hyperf
+## Hyperf+Swoole
 
 >> ab -n 20000 -c 1000 http://192.168.0.5:82/
 
@@ -236,7 +236,7 @@ public function api(){
 
 #### API性能测试结果
 ~~~
-## Hyperf 
+## Hyperf+Swoole
 >>  ab -n 20000 -c 1000 http://192.168.0.5:82/api
 
 Server Software:        nginx
@@ -372,7 +372,7 @@ Total:         24  276  38.5    277     525
 * View视图性能：Hyperf(986.31RPS)\ThinkPHP(146.15RPS)\ThinkPHP+Swoole(1827.32QPS)
 * API接口性能：Hyperf(3537.38RPS)\ThinkPHP(173.55RPS)\ThinkPHP+Swoole(3527.20RPS)
 
-在基于Swoole拓展下，框架的性能差距不大。专注业务逻辑，勿要总是关注框架或技术。
+在基于Swoole下，框架的性能差距不大。专注业务逻辑，勿要总是关注框架或技术,用ThinkPHP即可。
 
   
   
